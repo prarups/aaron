@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ARRON GARMENTS</title>
+    <title>AARON GARMENTS</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         /* ---------- COLOR PALETTE: BLACK (#000000) & YELLOW (#FFEB3B) ---------- */
@@ -21,20 +21,135 @@
             justify-content: center;
             min-height: 100vh;
             padding: 20px 0;
+            margin: 0; /* Ensure no external margin on body */
         }
-        .container { text-align: center; max-width: 420px; }
+        /* Mobile-first: Constraining the main content to look good on phones */
+        .container { 
+            text-align: center; 
+            max-width: 420px; 
+            width: 100%; 
+            padding: 0 15px; /* Add padding to prevent content touching edges */
+        }
+
+        /* New: CAROUSEL STYLING - PROFESSIONAL VIEW FIXES */
+        #heroCarousel {
+            width: 100%;
+            height: 300px; /* Fixed height for the banner */
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 30px !important; 
+            box-shadow: 0 5px 20px rgba(255, 235, 59, 0.2); /* Subtle shadow for depth */
+        }
+        .carousel-inner { height: 100%; }
+        .carousel-item {
+            height: 100%;
+            background-size: cover;
+            background-position: center center;
+            position: relative;
+        }
+        /* Dark overlay for text contrast - Made slightly lighter for style */
+        .carousel-item:after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.5); /* Slightly lighter overlay */
+        }
+        .carousel-caption {
+            /* Fix: Better alignment for mobile view */
+            position: absolute;
+            top: 25%; /* Start a bit higher */
+            left: 15%; 
+            transform: none; /* Remove translateY */
+            text-align: left;
+            padding: 0;
+            max-width: 80%;
+            z-index: 10;
+        }
+        .carousel-caption h2 { 
+            color: #ffffff; 
+            font-weight: 800; 
+            font-size: 2.2rem; /* Ensure large, impactful text */
+        }
+        .special-offer { 
+            color: #FFEB3B; 
+            font-weight: 700; /* Increased weight */
+            text-transform: uppercase; 
+            margin-bottom: 5px; 
+            font-size: 0.9rem; /* Slightly larger offer text */
+            letter-spacing: 1px;
+        }
+        .carousel-indicators {
+            bottom: 60px; /* Lift indicators above the button bar */
+        }
+        .carousel-indicators button {
+            background-color: #FFEB3B;
+            border: none;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+        .carousel-indicators button.active {
+            opacity: 1;
+        }
+
+        /* Carousel Buttons at the Bottom */
+        .carousel-button-bar {
+            position: absolute;
+            bottom: 0; 
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-around; /* Distribute space evenly */
+            background: rgba(0, 0, 0, 0.85); /* Slightly darker bar for contrast */
+            padding: 10px 10px; /* Added horizontal padding */
+            gap: 10px;
+            z-index: 15; 
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+        .btn-carousel-custom {
+            border-radius: 30px; 
+            background-color: transparent; 
+            color: #ffffff;
+            font-weight: 700; 
+            border: 2px solid #ffffff; 
+            padding: 10px 12px; /* Adjusted padding for better fit */
+            transition: all 0.3s;
+            flex-grow: 1;
+            font-size: 0.9rem; /* Smaller font for better fit */
+            max-width: 170px;
+        }
+        .btn-carousel-custom.active {
+            background-color: #FFEB3B; 
+            color: #000; 
+            border-color: #FFEB3B; 
+            transform: scale(1.03); /* Smaller scale effect */
+            box-shadow: 0 0 10px rgba(255, 235, 59, 0.8);
+        }
+        .btn-carousel-custom:hover:not(.active) { 
+            background-color: #333333; 
+            color: #FFEB3B; 
+        }
+
+        /* Carousel controls (Arrows) */
+        .carousel-control-prev, .carousel-control-next {
+            z-index: 12; /* Ensure arrows are above the overlay */
+        }
 
         /* ---------- LOGO STYLING ---------- */
         .logo-circle {
             width: 120px; height: 120px; border-radius: 50%; margin: 0 auto 15px;
             display: flex; justify-content: center; align-items: center;
-            overflow: hidden; background: #FFEB3B; /* Yellow Background */
+            overflow: hidden; background: #FFEB3B; 
             box-shadow: 0 0 15px rgba(255, 235, 59, 0.8);
             animation: floatLogo 4s ease-in-out infinite, logoGlow 6s ease-in-out infinite;
         }
         @keyframes floatLogo {
             0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-8px); } /* Reduced float distance */
         }
         @keyframes logoGlow {
             0%, 100% { box-shadow: 0 0 15px rgba(255, 235, 59, 0.8); }
@@ -46,27 +161,6 @@
         .social-icon { width: 38px; height: 38px; margin: 0 8px; transition: transform 0.3s; }
         .social-icon:hover { transform: scale(1.2); filter: drop-shadow(0 0 5px #FFEB3B); }
 
-        /* ---------- MAIN TABS (Branch/Product) ---------- */
-        .main-tab-buttons {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap; /* Allow wrapping on smaller screens */
-            gap: 10px; /* Space between buttons */
-            margin-bottom: 25px; /* Added spacing below the tabs */
-        }
-        .main-tab-btn {
-            border-radius: 30px; background-color: #000; color: #FFEB3B;
-            font-weight: 700; border: 2px solid #FFEB3B; padding: 10px 20px; /* Adjusted padding */
-            transition: all 0.3s;
-            flex-grow: 1; /* Allow buttons to grow and fill space */
-            max-width: 190px; /* Max width to prevent excessive stretching */
-        }
-        .main-tab-btn.active {
-            background-color: #FFEB3B; color: #000; transform: scale(1.05);
-            box-shadow: 0 0 15px rgba(255, 235, 59, 0.8);
-        }
-        .main-tab-btn:hover:not(.active) { background-color: #333333; }
-
         /* ---------- STATE BUTTONS (Inside Branch Tab) ---------- */
         .state-btn-group {
             display: flex;
@@ -77,9 +171,9 @@
         }
         .state-btn {
             border-radius: 30px; background-color: #ffffff; color: #000;
-            font-weight: 600; border: none; padding: 8px 18px; 
+            font-weight: 600; border: none; padding: 10px 20px; /* Slightly larger padding */
             transition: all 0.3s;
-            flex-grow: 1;
+            flex-grow: 1; /* Fix: Added flex-grow for better horizontal distribution */
             max-width: 170px;
         }
         .state-btn.active { background-color: #FFEB3B; color: #000; transform: scale(1.05); }
@@ -88,20 +182,22 @@
         /* ---------- CUSTOM LINK BUTTONS ---------- */
         .btn-custom {
             border-radius: 40px; font-weight: 600; font-size: 1rem;
-            background-color: #FFEB3B; /* Yellow */
+            background-color: #FFEB3B; 
             color: #000; border: none;
             box-shadow: 0 3px 10px rgba(0,0,0,0.4);
             transition: all 0.3s ease;
-            display: flex; align-items: center; justify-content: flex-start; /* Align text to start */
-            gap: 10px; padding: 12px 20px; max-width: 90%; margin: 0 auto 15px;
-            text-decoration: none; /* Ensure no underline on anchor tags */
+            display: flex; align-items: center; justify-content: flex-start;
+            gap: 10px; padding: 12px 20px; 
+            max-width: 100%; /* Important for mobile responsiveness */
+            margin: 0 auto 15px;
+            text-decoration: none;
         }
 
         .btn-custom.product-btn {
             background-color: #1a1a1a;
             color: #FFEB3B;
             border: 2px solid #FFEB3B;
-            justify-content: center; /* Center content for product buttons */
+            justify-content: center; 
         }
 
         .btn-custom:hover {
@@ -117,11 +213,11 @@
         }
 
         .btn-custom img { 
-            width: 30px; /* Slightly larger for product images */
+            width: 30px; 
             height: 30px; 
-            border-radius: 8px; /* Slightly rounded corners for product images */
+            border-radius: 8px; 
             object-fit: cover; 
-            flex-shrink: 0; /* Prevent image from shrinking */
+            flex-shrink: 0; 
         }
 
         /* ---------- TEXT AND HEADINGS ---------- */
@@ -150,57 +246,59 @@
         .branch-card h4 { color: #FFEB3B; font-size: 1.2rem; margin-bottom: 5px; font-weight: 700; }
         .branch-card p { color: #ccc; font-size: 0.9rem; margin-bottom: 10px; line-height: 1.4; }
 
-        /* New: Group for holding the two location/call buttons */
         .location-btn-group {
             display: flex;
-            gap: 10px; /* Space between buttons */
-            flex-wrap: wrap; /* Allow wrapping if space is limited */
+            gap: 10px; 
+            flex-wrap: wrap; 
             margin-top: 10px;
+        }
+
+        .location-btn, .call-btn {
+            padding: 8px 15px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: 0.3s;
+            text-decoration: none; 
+            display: inline-flex; 
+            align-items: center;
+            gap: 5px;
+            flex-grow: 1; /* Ensures buttons stretch nicely on mobile */
+            max-width: 50%; /* Limits button growth to half width */
+            justify-content: center; /* Center content within the button */
+            white-space: nowrap;
         }
 
         .location-btn {
             background-color: #FFEB3B;
             color: #000;
             border: none;
-            padding: 8px 15px;
-            border-radius: 30px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: 0.3s;
-            text-decoration: none; /* Ensure no underline */
-            display: inline-flex; /* Align icon and text */
-            align-items: center;
-            gap: 5px;
         }
-        .location-btn:hover { background-color: #fff176; transform: scale(1.05); }
+        .location-btn:hover { background-color: #fff176; transform: scale(1.03); }
         
-        /* New: Call Button Styling */
         .call-btn {
-            background-color: #ffffff; /* White/Light background */
+            background-color: #ffffff; 
             color: #000;
             border: none;
-            padding: 8px 15px;
-            border-radius: 30px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: 0.3s;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
         }
-        .call-btn:hover { background-color: #FFEB3B; transform: scale(1.05); }
+        .call-btn:hover { background-color: #FFEB3B; transform: scale(1.03); }
 
         /* ---------- TABS & SECTIONS DISPLAY ---------- */
-        .main-content-section { display: none; animation: fadeIn 0.5s ease; }
+        .main-content-section { 
+            display: none; 
+            animation: fadeIn 0.5s ease;
+            padding-top: 20px;
+        }
         .state-section { display: none; margin-top: 20px;}
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Set initial view */
-        #branch-tab-content { display: block; }
+        /* Initial state handled by JS, setting defaults for fallback only */
+        /* IMPORTANT: The JS will override these initial displays based on the new default ('branch') */
+        #branch-tab-content { display: none; } 
+        #product-tab-content { display: block; } 
 
         /* ---------- FOOTER & SHARE ---------- */
         footer { color: #fff; opacity: 0.7; margin-top: 40px; font-size: 0.8rem; }
@@ -231,9 +329,10 @@
 </head>
 <body>
     <div class="container">
-        <header class="text-white mb-5" data-aos="fade-down">
+        
+        <header class="text-white mb-4" data-aos="fade-down" data-aos-delay="500">
             <div class="logo-circle">
-                <img src="aronlogo.png" alt="ARRON GARMENTS Logo"> 
+                <img src="aronlogo.png" alt="AARON GARMENTS Logo"> 
             </div>
             <h1 class="fs-4 fw-bold">AARON GARMENTS</h1>
             <p class="mb-3 opacity-75">10 Branches Across South India | Premium Apparel</p>
@@ -243,129 +342,42 @@
                 <a href="https://chat.whatsapp.com/CjsuRAf3g1EHUbzMVU4VpE" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" class="social-icon" alt="WhatsApp"></a>
             </div>
         </header>
+        
+        <section id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-aos="fade-down">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+
+            <div class="carousel-inner">
+                <div class="carousel-item active" style="background-image: url('ban1.jpg');">
+                </div>
+
+                <div class="carousel-item" style="background-image: url('ban2.jpg');">
+                </div>
+
+                <div class="carousel-item" style="background-image: url('ban3.jpg');">
+                </div>
+            </div>
+            
+            <div class="carousel-button-bar">
+                <button id="btnCarouselBranch" class="btn-carousel-custom" onclick="showMainSection('branch', true)">📍 Our Branches</button>
+                <button id="btnCarouselProduct" class="btn-carousel-custom" onclick="showMainSection('product', true)">👕 Our Products</button>
+            </div>
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </section>
 
         <main>
-            <div class="main-tab-buttons" data-aos="zoom-in">
-                <button id="tabBranch" class="main-tab-btn active" onclick="showMainSection('branch')">📍 Our Branches</button>
-                <button id="tabProduct" class="main-tab-btn" onclick="showMainSection('product')">👕 Our Products</button>
-            </div>
-
-            <div id="branch-tab-content" class="main-content-section">
-                <h2 class="text-center section-title mb-3" data-aos="zoom-in">Find Our Stores</h2>
-                <p class="info-text" data-aos="fade-up">💡 Select a state to see detailed branch locations.</p>
-
-                <div class="state-btn-group">
-                    <button id="btnAP" class="state-btn active" onclick="showState('andhra')">Andhra Pradesh</button>
-                    <button id="btnTN" class="state-btn" onclick="showState('tamilnadu')">Tamil Nadu</button>
-                </div>
-
-                <div id="andhra" class="state-section" style="display: block;">
-                    
-                    <div class="branch-card" data-aos="fade-up" data-aos-delay="100">
-                        <h4>Sullurupeta Branch</h4>
-                        <p>2-2-15, Revenue Word No 2, Rajeev Nagar, HDFC ATM, NELLORE, Sullurpet, Tirupati, Andhra Pradesh - 524121. Phone: 9360792292</p>
-                        <div class="location-btn-group">
-                            <a href="https://share.google/RbsHlvcvx39aPoU6M" target="_blank" class="location-btn">🗺️ Get Directions</a>
-                            <a href="tel:9360792292" class="call-btn">📞 Call Branch</a>
-                        </div>
-                    </div>
-                    
-                    <div class="branch-card" data-aos="fade-up" data-aos-delay="200">
-                        <h4>Kota Branch</h4>
-                        <p>EXTRA MART NEAR BY AAROGYA MEDICAL OPPOSITE, KOTA, Andhra Pradesh. Phone: 6304374016</p>
-                        <div class="location-btn-group">
-                            <a href="https://share.google/PUfvE8FYjOwQhPBO0" target="_blank" class="location-btn">🗺️ Get Directions</a>
-                            <a href="tel:6304374016" class="call-btn">📞 Call Branch</a>
-                        </div>
-                    </div>
-                    
-                    <div class="branch-card" data-aos="fade-up" data-aos-delay="300">
-                        <h4>Naidupeta Branch</h4>
-                        <p>1-1-39/1, BHARATH NAGAR 1, BALAJI TRAVELS, NAYUDUPET, Vinnamla, Tirupati, Andhra Pradesh - 524126.  Phone: 8708221762</p>
-                        <div class="location-btn-group">
-                            <a href="https://share.google/KzdJLSDOQKFJO7moq" target="_blank" class="location-btn">🗺️ Get Directions</a>
-                            <a href="tel:8708221762" class="call-btn">📞 Call Branch</a>
-                        </div>
-                    </div>
-                    
-                    <div class="branch-card" data-aos="fade-up" data-aos-delay="400">
-                        <h4>Nellore Branch</h4>
-                        <p>2ND FLOOR, 25/2/587, SAVITHRI NAGAR, NAGAM TEMPLE, REVENUE WARD NELLORE - 524004. Phone: 9666071778</p>
-                        <div class="location-btn-group">
-                            <a href="https://share.google/diLUDcGYvvsEEImbZ" target="_blank" class="location-btn">🗺️ Get Directions</a>
-                            <a href="tel:9666071778" class="call-btn">📞 Call Branch</a>
-                        </div>
-                    </div>
-
-                    <div class="branch-card" data-aos="fade-up" data-aos-delay="500">
-                        <h4>Srikalahasti Branch</h4>
-                        <p>RTC BUSSTAND OPPOSITE, SRI KALASTRI, TIRUPATI, Andhra Pradesh - 517640. Phone: 9398833979</p>
-                        <div class="location-btn-group">
-                            <a href="https://share.google/ZjnQgZdqGbQ1EA4lG" target="_blank" class="location-btn">🗺️ Get Directions</a>
-                            <a href="tel:9398833979" class="call-btn">📞 Call Branch</a>
-                        </div>
-                    </div>
-                    
-                    <div class="branch-card" data-aos="fade-up" data-aos-delay="600">
-                        <h4>Tirupati Branch</h4>
-                        <p>13-7-796/14B, Vinayaka nagar, Sankalpa Super Speciality Hospital, Tirupati, Andhra Pradesh - 517501. Phone: 7989956548</p>
-                        <div class="location-btn-group">
-                            <a href="https://share.google/7AfihvT4QudklugLX" target="_blank" class="location-btn">🗺️ Get Directions</a>
-                            <a href="tel:7989956548" class="call-btn">📞 Call Branch</a>
-                        </div>
-                    </div>
-					
-					<div class="branch-card" data-aos="fade-up" data-aos-delay="600">
-                        <h4>RAILWAY KODURU</h4>
-                        <p>NO:1343, MG ROAD, RAILWAY KODURU, ANNAMAYYA (DIST) Andhra Pradesh - 516101. Phone: 9000495717</p>
-                        <div class="location-btn-group">
-                            <a href="https://maps.app.goo.gl/7DpLK6faqeFFjr2f7?g_st=ipc" target="_blank" class="location-btn">🗺️ Get Directions</a>
-                            <a href="tel:9000495717" class="call-btn">📞 Call Branch</a>
-                        </div>
-                    </div>
-					
-					<div class="branch-card" data-aos="fade-up" data-aos-delay="600">
-                        <h4>RAJAMPET</h4>
-                        <p>6/399 ABNR COLONY, Naveen Chandra complex Rs Road, Rajampet - 516115. Phone: 9063270776</p>
-                        <div class="location-btn-group">
-                            <a href="https://maps.app.goo.gl/HvziZCqULuNJK64g7?g_st=iw" target="_blank" class="location-btn">🗺️ Get Directions</a>
-                            <a href="tel:9063270776" class="call-btn">📞 Call Branch</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="tamilnadu" class="state-section">
-                    
-                    <div class="branch-card" data-aos="fade-up" data-aos-delay="100">
-                        <h4>Royapuram Branch</h4>
-                        <p>2, 55, W Kal Mandapam Rd, Pudumanaikuppam, Royapuram, Chennai, Tamil Nadu 600013. Phone: 8667081577</p>
-                        <div class="location-btn-group">
-                            <a href="https://share.google/91PjHy0dSDYkdp7Uo" target="_blank" class="location-btn">🗺️ Get Directions</a>
-                            <a href="tel:8667081577" class="call-btn">📞 Call Branch</a>
-                        </div>
-                    </div>
-
-                    <div class="branch-card" data-aos="fade-up" data-aos-delay="200">
-                        <h4>MADHAR PAKKAM Branch</h4>
-                        <p>119, PH Rd, Padhirivedu, Tamil Nadu 601202. Phone: 9962439690</p>
-                        <div class="location-btn-group">
-                            <a href="https://share.google/PxbxX5x3VGFnMqARw" target="_blank" class="location-btn">🗺️ Get Directions</a>
-                            <a href="tel:9962439690" class="call-btn">📞 Call Branch</a>
-                        </div>
-                    </div>
-
-                    <div class="branch-card" data-aos="fade-up" data-aos-delay="300">
-                        <h4>Gummidipoondi Branch</h4>
-                        <p>92, GNT Road, opposite Gummidi Pundi, Tamil Nadu - 601202. Phone: 6381144545</p>
-                        <div class="location-btn-group">
-                            <a href="https://share.google/ML91Y6Py5jS8eS1rO" target="_blank" class="location-btn">🗺️ Get Directions</a>
-                            <a href="tel:6381144545" class="call-btn">📞 Call Branch</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="product-tab-content" class="main-content-section">
+            <div id="product-tab-content" class="main-content-section" style="display: none;">
                 <h2 class="text-center section-title mb-3" data-aos="zoom-in">Explore Our Collections</h2>
                 <p class="info-text" data-aos="fade-up">Find your style from our wide range of quality garments.</p>
 
@@ -377,6 +389,121 @@
                 <a href="product-gallery.html?category=shorts" target="_blank" class="btn btn-custom product-btn" data-aos="fade-up" data-aos-delay="600"><img src="short1.jpg" alt="Shorts"> <span>Shorts - Athletic & Casual</span></a>
                 <a href="product-gallery.html?category=shoes" target="_blank" class="btn btn-custom product-btn" data-aos="fade-up" data-aos-delay="700"><img src="shoes1.jpg" alt="Shoes"> <span>Shoes - Footwear Collection</span></a>
             </div>
+
+            <div id="branch-tab-content" class="main-content-section">
+    <h2 class="text-center section-title mb-3" data-aos="zoom-in">Find Our Stores</h2>
+    <p class="info-text" data-aos="fade-up">💡 Select a state to see detailed branch locations.</p>
+
+    <div class="state-btn-group">
+        <button id="btnAP" class="state-btn active" onclick="showState('andhra')">Andhra Pradesh</button>
+        <button id="btnTN" class="state-btn" onclick="showState('tamilnadu')">Tamil Nadu</button>
+    </div>
+
+    <div id="andhra" class="state-section" style="display: block;">
+        
+        <div class="branch-card" data-aos="fade-up" data-aos-delay="100">
+            <h4>Sullurupeta Branch</h4>
+            <p>2-2-15, Revenue Word No 2, Rajeev Nagar, HDFC ATM, NELLORE, Sullurpet, Tirupati, Andhra Pradesh - 524121. Phone: 9360792292</p>
+            <div class="location-btn-group">
+                <a href="https://share.google/vPUrdC2TZ68owoAqg" target="_blank" class="location-btn">🗺️ Directions</a>
+                <a href="tel:9360792292" class="call-btn">📞 Call</a>
+            </div>
+        </div>
+        
+        <div class="branch-card" data-aos="fade-up" data-aos-delay="200">
+            <h4>Kota Branch</h4>
+            <p>EXTRA MART NEAR BY AAROGYA MEDICAL OPPOSITE, KOTA, Andhra Pradesh. Phone: 6304374016</p>
+            <div class="location-btn-group">
+                <a href="https://maps.app.goo.gl/osBkB7aRyD4dYZrq9" target="_blank" class="location-btn">🗺️ Directions</a>
+                <a href="tel:6304374016" class="call-btn">📞 Call</a>
+            </div>
+        </div>
+        
+        <div class="branch-card" data-aos="fade-up" data-aos-delay="300">
+            <h4>Naidupeta Branch</h4>
+            <p>1-1-39/1, BHARATH NAGAR 1, BALAJI TRAVELS, NAYUDUPET, Vinnamla, Tirupati, Andhra Pradesh - 524126. Phone: 8708221762</p>
+            <div class="location-btn-group">
+                <a href="https://www.google.com/maps/search/Naidupeta+Branch+1-1-39/1+NAYUDUPET" target="_blank" class="location-btn">🗺️ Directions</a>
+                <a href="tel:8708221762" class="call-btn">📞 Call</a>
+            </div>
+        </div>
+        
+        <div class="branch-card" data-aos="fade-up" data-aos-delay="400">
+            <h4>Nellore Branch</h4>
+            <p>2ND FLOOR, 25/2/587, SAVITHRI NAGAR, NAGAM TEMPLE, REVENUE WARD NELLORE - 524004. Phone: 9666071778</p>
+            <div class="location-btn-group">
+                <a href="https://maps.app.goo.gl/unQo6YsDCZR4bEpw6" target="_blank" class="location-btn">🗺️ Directions</a>
+                <a href="tel:9666071778" class="call-btn">📞 Call</a>
+            </div>
+        </div>
+
+        <div class="branch-card" data-aos="fade-up" data-aos-delay="500">
+            <h4>Srikalahasti Branch</h4>
+            <p>RTC BUSSTAND OPPOSITE, SRI KALASTRI, TIRUPATI, Andhra Pradesh - 517640. Phone: 9398833979</p>
+            <div class="location-btn-group">
+                <a href="https://maps.app.goo.gl/BwcNwcaAnQQcCvPx8" target="_blank" class="location-btn">🗺️ Directions</a>
+                <a href="tel:9398833979" class="call-btn">📞 Call</a>
+            </div>
+        </div>
+        
+        <div class="branch-card" data-aos="fade-up" data-aos-delay="600">
+            <h4>Tirupati Branch</h4>
+            <p>13-7-796/14B, Vinayaka nagar, Sankalpa Super Speciality Hospital, Tirupati, Andhra Pradesh - 517501. Phone: 7989956548</p>
+            <div class="location-btn-group">
+                <a href="https://maps.app.goo.gl/7SumhD3faHnq1Hq89" target="_blank" class="location-btn">🗺️ Directions</a>
+                <a href="tel:7989956548" class="call-btn">📞 Call</a>
+            </div>
+        </div>
+        
+        <div class="branch-card" data-aos="fade-up" data-aos-delay="600">
+            <h4>RAILWAY KODURU</h4>
+            <p>NO:1343, MG ROAD, RAILWAY KODURU, ANNAMAYYA (DIST) Andhra Pradesh - 516101. Phone: 9000495717</p>
+            <div class="location-btn-group">
+                <a href="https://www.google.com/maps/search/RAILWAY+KODURU+1343+MG+ROAD" target="_blank" class="location-btn">🗺️ Directions</a>
+                <a href="tel:9000495717" class="call-btn">📞 Call</a>
+            </div>
+        </div>
+        
+        <div class="branch-card" data-aos="fade-up" data-aos-delay="600">
+            <h4>RAJAMPET</h4>
+            <p>6/399 ABNR COLONY, Naveen Chandra complex Rs Road, Rajampet - 516115. Phone: 9063270776</p>
+            <div class="location-btn-group">
+                <a href="https://www.google.com/maps/search/RAJAMPET+6/399+ABNR+COLONY" target="_blank" class="location-btn">🗺️ Directions</a>
+                <a href="tel:9063270776" class="call-btn">📞 Call</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="tamilnadu" class="state-section">
+        
+        <div class="branch-card" data-aos="fade-up" data-aos-delay="100">
+            <h4>Royapuram Branch</h4>
+            <p>2, 55, W Kal Mandapam Rd, Pudumanaikuppam, Royapuram, Chennai, Tamil Nadu 600013. Phone: 8667081577</p>
+            <div class="location-btn-group">
+                <a href="https://share.google/91PjHy0dSDYkdp7Uo" target="_blank" class="location-btn">🗺️ Directions</a>
+                <a href="tel:8667081577" class="call-btn">📞 Call</a>
+            </div>
+        </div>
+
+        <div class="branch-card" data-aos="fade-up" data-aos-delay="200">
+            <h4>MADHAR PAKKAM Branch</h4>
+            <p>119, PH Rd, Padhirivedu, Tamil Nadu 601202. Phone: 9962439690</p>
+            <div class="location-btn-group">
+                <a href="https://share.google/PxbxX5x3VGFnMqARw" target="_blank" class="location-btn">🗺️ Directions</a>
+                <a href="tel:9962439690" class="call-btn">📞 Call</a>
+            </div>
+        </div>
+
+        <div class="branch-card" data-aos="fade-up" data-aos-delay="300">
+            <h4>Gummidipoondi Branch</h4>
+            <p>92, GNT Road, opposite Gummidi Pundi, Tamil Nadu - 601202. Phone: 6381144545</p>
+            <div class="location-btn-group">
+                <a href="https://share.google/ML91Y6Py5jS8eS1rO" target="_blank" class="location-btn">🗺️ Directions</a>
+                <a href="tel:6381144545" class="call-btn">📞 Call</a>
+            </div>
+        </div>
+    </div>
+</div>
 
             <h2 class="text-center section-title mt-5 mb-3" data-aos="zoom-in">Stay Connected</h2>
             <a href="https://chat.whatsapp.com/CjsuRAf3g1EHUbzMVU4VpE" target="_blank" class="btn btn-custom mb-3" data-aos="fade-up">
@@ -398,7 +525,7 @@
         </section>
 
         <footer data-aos="fade-up" data-aos-delay="700">
-            © 2025 ARRON GARMENTS | Crafted with ❤️ by bbs solutions.
+            © 2025 AARON GARMENTS | Crafted with ❤️ by bbs solutions.
         </footer>
     </div>
 
@@ -409,27 +536,38 @@
     <script>
         AOS.init({ duration: 1000, once: true });
         
-        // --- Main Tab Switching (Branch/Product) ---
-        function showMainSection(tabName) {
+        // --- Main Tab Switching (Product/Branch) ---
+        function showMainSection(tabName, isCarousel = false) {
             const branchContent = document.getElementById("branch-tab-content");
             const productContent = document.getElementById("product-tab-content");
-            const tabBranch = document.getElementById("tabBranch");
-            const tabProduct = document.getElementById("tabProduct");
+            
+            const tabBranch = document.getElementById("btnCarouselBranch");
+            const tabProduct = document.getElementById("btnCarouselProduct");
 
             if (tabName === "branch") {
-                branchContent.style.display = "block";
                 productContent.style.display = "none";
+                branchContent.style.display = "block";
                 tabBranch.classList.add("active");
                 tabProduct.classList.remove("active");
-                // Reset to default state view when switching back to branch tab
+                
+                // Scroll down to the branch content
+                if (isCarousel) {
+                    document.getElementById("branch-tab-content").scrollIntoView({ behavior: 'smooth' });
+                }
+                // Reset to default state view (Andhra Pradesh)
                 showState('andhra'); 
             } else {
                 branchContent.style.display = "none";
                 productContent.style.display = "block";
-                tabBranch.classList.remove("active");
                 tabProduct.classList.add("active");
+                tabBranch.classList.remove("active");
+
+                // Scroll down to the product content
+                if (isCarousel) {
+                    document.getElementById("product-tab-content").scrollIntoView({ behavior: 'smooth' });
+                }
             }
-            AOS.refresh(); // Re-initialize AOS to animate new content
+            AOS.refresh(); 
         }
 
         // --- State Switching (Andhra Pradesh/Tamil Nadu) ---
@@ -454,16 +592,19 @@
                 btnAP.classList.add("active");
             }
 
-            AOS.refresh(); // Re-initialize AOS to animate new content
+            AOS.refresh(); 
         }
 
-        // Initialize by showing Andhra Pradesh inside the Branch tab
-        showState('andhra'); 
+        // --- Initial View Setup (MODIFIED) ---
+        document.addEventListener('DOMContentLoaded', (event) => {
+            // Initialize: show branch tab (NEW DEFAULT) and set Andhra Pradesh as active state view
+            showMainSection('branch', false);
+            showState('andhra');
+        });
 
         // --- Copy Link Function ---
         function copyPageLink() {
-            // Replace this with the actual URL where this page is hosted
-            const pageLink = window.location.href; 
+            const pageLink = window.location.href;
             
             navigator.clipboard.writeText(pageLink)
                 .then(() => {
